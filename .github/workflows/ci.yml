@@ -13,7 +13,7 @@ jobs:
       matrix:
         node-version: [22]
     environment: MONGO_URI
-    
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -48,8 +48,6 @@ jobs:
 
       - name: Install Frontend Dependencies and Build
         working-directory: ./frontend
-        env:
-          CI: false
         env:
           CI: false
         run: |
