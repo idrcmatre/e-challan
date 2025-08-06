@@ -48,3 +48,4 @@ The application is deployed using GitHub Actions CI/CD pipeline to AWS.
 License
 MIT License
 EOF
+# CI/CD Pipeline Ready
