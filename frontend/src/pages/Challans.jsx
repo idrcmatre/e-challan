@@ -13,7 +13,7 @@ const Challans = () => {
 
     useEffect(() => {
         fetchChallans();
-    }, []);
+    }, [fetchChallans]);
 
     const fetchChallans = async () => {
         try {

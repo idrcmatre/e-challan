@@ -1,4 +1,4 @@
-﻿// frontend/src/components/ChallanList.jsx - BEAUTIFUL VERSION
+// frontend/src/components/ChallanList.jsx - BEAUTIFUL VERSION
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
