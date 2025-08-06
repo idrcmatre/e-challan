@@ -48,6 +48,10 @@ jobs:
 
       - name: Install Frontend Dependencies and Build
         working-directory: ./frontend
+        env:
+          CI: false
+        env:
+          CI: false
         run: |
           df -h
           sudo rm -rf ./build
