@@ -1,0 +1,95 @@
+name: E-Challan CI/CD Pipeline # Define the name of the CI workflow
+
+on: # Define the event that triggers the workflow
+  push: # Trigger the workflow on a push event
+    branches: # Specify the branches to monitor
+      - main # Run CI/CD pipeline only when code is pushed to the main branch
+
+jobs: # Define the jobs that will run in this workflow
+  test: # Job name (test job)
+    name: Run Tests and Deploy # Display name for the job
+    runs-on: self-hosted # Specify the runner (self-hosted machine) to execute the job
+    strategy: # Define a strategy for running the job
+      matrix: # Use a matrix to run the job in multiple environments
+        node-version: [22] # Test using Node.js version 22
+    environment: MONGO_URI # Define the environment variable for MongoDB connection
+    
+    steps: # Define the sequence of steps to be executed in this job
+      - name: Checkout Code
+        uses: actions/checkout@v3 # Clone the repository code to the runner
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3 # Use the setup-node action to configure Node.js
+        with:
+          node-version: ${{ matrix.node-version }} # Use the Node.js version specified in the matrix
+
+      - name: Print Environment Secrets
+        env: # Define environment variables for this step
+          MONGO_URI: ${{ secrets.MONGO_URI }} # MongoDB connection string
+          JWT_SECRET: ${{ secrets.JWT_SECRET }} # JWT authentication secret
+          PORT: ${{ secrets.PORT }} # Application port
+          EMAIL_USER: ${{ secrets.EMAIL_USER }} # Email configuration for notifications
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }} # Email password
+        run: | # Run multiple shell commands
+          echo "MongoDB URI is configured"
+          echo "JWT Secret is configured"
+          echo "Port is: $PORT"
+          echo "Email user is configured"
+
+      - name: Stop Running Services in AWS
+        run: pm2 stop all || true # Stop all PM2-managed processes, ignore errors if none running
+
+      - name: Install Backend Dependencies
+        working-directory: ./backend # Navigate to backend folder
+        run: | # Run multiple commands
+          npm install --global yarn # Install Yarn globally
+          yarn --version # Verify Yarn installation
+          yarn install # Install backend dependencies using Yarn
+
+      - name: Install Frontend Dependencies and Build
+        working-directory: ./frontend # Navigate to frontend folder
+        run: | # Run multiple commands
+          df -h # Show disk space usage
+          sudo rm -rf ./build # Remove existing build directory
+          yarn install # Install frontend dependencies
+          yarn run build # Build the frontend application
+
+      - name: Run Backend Tests
+        env: # Define environment variables for this step
+          MONGO_URI: ${{ secrets.MONGO_URI }} # MongoDB connection string
+          JWT_SECRET: ${{ secrets.JWT_SECRET }} # JWT authentication secret
+          PORT: ${{ secrets.PORT }} # Application port
+          EMAIL_USER: ${{ secrets.EMAIL_USER }} # Email configuration
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }} # Email password
+          NODE_ENV: test # Set environment to test
+        working-directory: ./backend # Navigate to backend folder
+        run: npm test # Run backend tests
+
+      - name: Install Dependencies Using npm ci
+        working-directory: ./backend
+        run: npm ci # Install dependencies using npm clean install
+
+      - name: Create .env File and Add Secrets for Production
+        working-directory: ./backend
+        run: | # Run multiple commands
+          touch .env # Create an empty .env file
+          echo "${{ secrets.PROD }}" > .env # Write production secrets to .env file
+
+      - name: Start Backend Services
+        working-directory: ./backend
+        run: |
+          pm2 start "npm run start" --name="e-challan-backend" || pm2 restart "e-challan-backend"
+
+      - name: Start Frontend Services
+        working-directory: ./frontend
+        run: |
+          pm2 serve build/ 3000 --name "e-challan-frontend" --spa || pm2 restart "e-challan-frontend"
+
+      - name: Save PM2 Configuration
+        run: pm2 save # Save PM2 configuration
+
+      - name: Check Application Status
+        run: |
+          pm2 status
+          sleep 10 # Wait for services to start
+          echo "E-Challan application deployed successfully!"
