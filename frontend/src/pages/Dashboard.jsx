@@ -15,7 +15,7 @@ const Dashboard = () => {
   const fetchStats = async () => {
     try {
       const response = await axios.get(
-        'http://localhost:5001/api/challans/stats',
+        'http://16.176.131.224/api/challans/stats',
         {
           headers: { Authorization: `Bearer ${user.token}` }
         }

@@ -23,7 +23,7 @@ const Profile = () => {
   const fetchProfile = async () => {
     try {
       const response = await axios.get(
-        'http://localhost:5001/api/auth/profile',
+        'http://16.176.131.224/api/auth/profile',
         {
           headers: { Authorization: `Bearer ${user.token}` }
         }
@@ -47,7 +47,7 @@ const Profile = () => {
 
     try {
       await axios.put(
-        'http://localhost:5001/api/auth/profile',
+        'http://16.176.131.224/api/auth/profile',
         formData,
         {
           headers: { Authorization: `Bearer ${user.token}` }

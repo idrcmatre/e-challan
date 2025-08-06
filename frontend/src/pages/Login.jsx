@@ -19,7 +19,7 @@ const Login = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:5001/api/auth/login', formData);
+            const response = await axios.post('http://16.176.131.224/api/auth/login', formData);
             login(response.data);
 
             // Success notification

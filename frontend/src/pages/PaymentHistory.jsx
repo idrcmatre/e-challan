@@ -15,7 +15,7 @@ const PaymentHistory = () => {
   const fetchPaymentHistory = async () => {
     try {
       const response = await axios.get(
-        'http://localhost:5001/api/payments/history',
+        'http://16.176.131.224/api/payments/history',
         {
           headers: { Authorization: `Bearer ${user.token}` }
         }

@@ -29,7 +29,7 @@ const ChallanForm = ({ onChallanCreated, onClose }) => {
 
         try {
             const response = await axios.post(
-                'http://localhost:5001/api/challans',
+                'http://16.176.131.224/api/challans',
                 formData,
                 {
                     headers: { Authorization: `Bearer ${user.token}` }

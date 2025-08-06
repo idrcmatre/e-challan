@@ -18,7 +18,7 @@ const Challans = () => {
     const fetchChallans = async () => {
         try {
             const response = await axios.get(
-                'http://localhost:5001/api/challans',
+                'http://16.176.131.224/api/challans',
                 {
                     headers: { Authorization: `Bearer ${user.token}` }
                 }
