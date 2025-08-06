@@ -11,25 +11,27 @@ const Challans = () => {
     const [showForm, setShowForm] = useState(false);
     const [filter, setFilter] = useState('all');
 
+ const fetchChallans = async () => {
+     try {
+         const response = await axios.get(
+             'http://localhost:5001/api/challans',
+             {
+                 headers: { Authorization: `Bearer ${user.token}` }
+             }
+         );
+         setChallans(response.data);
+     } catch (error) {
+         console.error('Failed to fetch challans:', error);
+     } finally {
+         setLoading(false);
+     }
+ };
+
+
     useEffect(() => {
         fetchChallans();
     }, [fetchChallans]);
 
-    const fetchChallans = async () => {
-        try {
-            const response = await axios.get(
-                'http://16.176.131.224/api/challans',
-                {
-                    headers: { Authorization: `Bearer ${user.token}` }
-                }
-            );
-            setChallans(response.data);
-        } catch (error) {
-            console.error('Failed to fetch challans:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     const handleChallanCreated = (newChallan) => {
         setChallans([newChallan, ...challans]);
