@@ -15,7 +15,7 @@ const Dashboard = () => {
   const fetchStats = async () => {
     try {
       const response = await axios.get(
-        'http://16.176.131.224/api/challans/stats',
+        'http://3.26.229.182/api/challans/stats',
         {
           headers: { Authorization: `Bearer ${user.token}` }
         }

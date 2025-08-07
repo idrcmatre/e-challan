@@ -1,4 +1,3 @@
-// This is what your backend/routes/authRoutes.js should ONLY contain:
 const express = require('express');
 const { registerUser, loginUser, getProfile, updateProfile } = require('../controllers/authController');
 const { protect } = require('../middleware/authMiddleware');

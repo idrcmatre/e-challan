@@ -1,5 +1,4 @@
-﻿// This is what your backend/routes/paymentRoutes.js should ONLY contain:
-const express = require('express');
+﻿const express = require('express');
 const { processPayment, getPaymentHistory } = require('../controllers/paymentController');
 const { protect } = require('../middleware/authMiddleware');
 const router = express.Router();
