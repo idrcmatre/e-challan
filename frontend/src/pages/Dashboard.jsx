@@ -1,4 +1,3 @@
-// frontend/src/pages/Dashboard.jsx - BEAUTIFUL VERSION
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
@@ -15,7 +14,7 @@ const Dashboard = () => {
   const fetchStats = async () => {
     try {
       const response = await axios.get(
-        'http://3.26.229.182/api/challans/stats',
+        'http://3.106.138.97/api/challans/stats',
         {
           headers: { Authorization: `Bearer ${user.token}` }
         }

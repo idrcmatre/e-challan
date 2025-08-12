@@ -20,7 +20,7 @@ const Register = () => {
         setLoading(true);
 
         try {
-            await axios.post('http://3.26.229.182/api/auth/register', formData);
+            await axios.post('http://3.106.138.97/api/auth/register', formData);
             alert('Registration successful! Please login.');
             navigate('/login');
         } catch (error) {

@@ -1,4 +1,3 @@
-// frontend/src/pages/Profile.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
@@ -23,7 +22,7 @@ const Profile = () => {
   const fetchProfile = async () => {
     try {
       const response = await axios.get(
-        'http://3.26.229.182/api/auth/profile',
+        'http://3.106.138.97/api/auth/profile',
         {
           headers: { Authorization: `Bearer ${user.token}` }
         }
@@ -47,7 +46,7 @@ const Profile = () => {
 
     try {
       await axios.put(
-        'http://3.26.229.182/api/auth/profile',
+        'http://3.106.138.97/api/auth/profile',
         formData,
         {
           headers: { Authorization: `Bearer ${user.token}` }

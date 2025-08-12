@@ -1,4 +1,3 @@
-// frontend/src/components/ChallanList.jsx - BEAUTIFUL VERSION
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
@@ -63,7 +62,7 @@ const ChallanList = ({ challans, onChallanUpdate }) => {
         setPaymentLoading(true);
         try {
             const response = await axios.post(
-                'http://3.26.229.182/api/payments/process',
+                'http://3.106.138.97/api/payments/process',
                 { challanId, paymentMethod },
                 {
                     headers: { Authorization: `Bearer ${user.token}` }

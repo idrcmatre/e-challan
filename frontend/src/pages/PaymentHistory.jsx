@@ -1,4 +1,3 @@
-// frontend/src/pages/PaymentHistory.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
@@ -15,7 +14,7 @@ const PaymentHistory = () => {
   const fetchPaymentHistory = async () => {
     try {
       const response = await axios.get(
-        'http://3.26.229.182/api/payments/history',
+        'http://3.106.138.97/api/payments/history',
         {
           headers: { Authorization: `Bearer ${user.token}` }
         }

@@ -19,7 +19,7 @@ const Login = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post('http://3.26.229.182/api/auth/login', formData);
+            const response = await axios.post('http://3.106.138.97/api/auth/login', formData);
             login(response.data);
 
             // Success notification
@@ -48,7 +48,7 @@ const Login = () => {
                 {/* Header */}
                 <div className="text-center mb-8">
                     <div className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center mb-4 shadow-lg">
-                        <span className="text-white text-2xl font-bold">E</span>
+                        <span className="text-white text-2xl font-bold">E-Challan</span>
                     </div>
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back!</h1>
                     <p className="text-gray-600">Sign in to your E-Challan account</p>
@@ -156,11 +156,11 @@ const Login = () => {
                     <div className="space-y-2 text-xs">
                         <div className="flex justify-between items-center p-2 bg-blue-50 rounded">
                             <span className="font-medium text-blue-900">👮‍♂️ Officer:</span>
-                            <span className="text-blue-700">officer@test.com / password123</span>
+                            <span className="text-blue-700">MFBTC@gmail.com / Vai</span>
                         </div>
                         <div className="flex justify-between items-center p-2 bg-green-50 rounded">
                             <span className="font-medium text-green-900">🚗 Citizen:</span>
-                            <span className="text-green-700">citizen@test.com / password123</span>
+                            <span className="text-green-700">citizen@example.com / citizen</span>
                         </div>
                     </div>
                 </div>
