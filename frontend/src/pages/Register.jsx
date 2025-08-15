@@ -154,3 +154,6 @@ const Register = () => {
 };
 
 export default Register;
+
+
+// comment for JIRA push, checking if unnecessary files were deleted
