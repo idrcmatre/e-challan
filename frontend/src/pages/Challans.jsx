@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import ChallanForm from '../components/ChallanForm';
 import ChallanList from '../components/ChallanList';
+import API_BASE_URL from '../config/api';
 
 const Challans = () => {
     const { user } = useAuth();
@@ -11,36 +12,56 @@ const Challans = () => {
     const [showForm, setShowForm] = useState(false);
     const [filter, setFilter] = useState('all');
 
- const fetchChallans = async () => {
-     try {
-         const response = await axios.get(
-             'http://localhost:5001/api/challans',
-             {
-                 headers: { Authorization: `Bearer ${user.token}` }
-             }
-         );
-         setChallans(response.data);
-     } catch (error) {
-         console.error('Failed to fetch challans:', error);
-     } finally {
-         setLoading(false);
-     }
- };
-
+    const fetchChallans = useCallback(async () => {
+        try {
+            const response = await axios.get(
+                `${API_BASE_URL}/challans`,
+                {
+                    headers: { Authorization: `Bearer ${user.token}` }
+                }
+            );
+            setChallans(response.data);
+        } catch (error) {
+            console.error('Failed to fetch challans:', error);
+        } finally {
+            setLoading(false);
+        }
+    }, [user.token]);
 
     useEffect(() => {
         fetchChallans();
     }, [fetchChallans]);
 
-
     const handleChallanCreated = (newChallan) => {
-        setChallans([newChallan, ...challans]);
+        setChallans(prevChallans => [newChallan, ...prevChallans]);
     };
 
-    const handleChallanUpdate = (updatedChallan) => {
-        setChallans(challans.map(challan =>
-            challan._id === updatedChallan._id ? updatedChallan : challan
-        ));
+    // Fixed: Use functional update pattern with prevChallans
+    const handleChallanUpdate = (updatedChallanOrAction, challanId) => {
+        console.log('Parent: handleChallanUpdate called', { updatedChallanOrAction, challanId });
+
+        if (updatedChallanOrAction === 'DELETE') {
+            console.log('Parent: Deleting challan:', challanId);
+            setChallans(prevChallans =>
+                prevChallans.filter(challan => challan._id !== challanId)
+            );
+        } else {
+            console.log('Parent: Updating challan:', updatedChallanOrAction._id);
+            console.log('Updated data:', updatedChallanOrAction);
+
+            setChallans(prevChallans => {
+                const updatedChallans = prevChallans.map(challan => {
+                    if (challan._id === updatedChallanOrAction._id) {
+                        console.log('Found and updating challan:', challan._id);
+                        return updatedChallanOrAction;
+                    }
+                    return challan;
+                });
+
+                console.log('Updated challans array length:', updatedChallans.length);
+                return updatedChallans;
+            });
+        }
     };
 
     const filteredChallans = challans.filter(challan => {
@@ -81,8 +102,8 @@ const Challans = () => {
                             key={status}
                             onClick={() => setFilter(status)}
                             className={`px-4 py-2 rounded-md text-sm font-medium ${filter === status
-                                    ? 'bg-blue-600 text-white'
-                                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                ? 'bg-blue-600 text-white'
+                                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                                 }`}
                         >
                             {status.charAt(0).toUpperCase() + status.slice(1)}

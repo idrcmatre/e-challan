@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api';
 
 const PaymentHistory = () => {
   const { user } = useAuth();
@@ -13,12 +14,12 @@ const PaymentHistory = () => {
 
   const fetchPaymentHistory = async () => {
     try {
-      const response = await axios.get(
-        'http://3.106.138.97/api/payments/history',
-        {
-          headers: { Authorization: `Bearer ${user.token}` }
-        }
-      );
+        const response = await axios.get(
+            `${API_BASE_URL}/payments/history`,
+            {
+                headers: { Authorization: `Bearer ${user.token}` }
+            }
+        );
       setPayments(response.data);
     } catch (error) {
       console.error('Failed to fetch payment history:', error);

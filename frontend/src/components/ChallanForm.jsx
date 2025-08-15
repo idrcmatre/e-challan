@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api';
 
 const ChallanForm = ({ onChallanCreated, onClose }) => {
     const { user } = useAuth();
@@ -29,7 +30,7 @@ const ChallanForm = ({ onChallanCreated, onClose }) => {
 
         try {
             const response = await axios.post(
-                'http://3.106.138.97/api/challans',
+                `${API_BASE_URL}/challans`,
                 formData,
                 {
                     headers: { Authorization: `Bearer ${user.token}` }
