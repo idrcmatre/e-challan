@@ -128,8 +128,6 @@ NODE_ENV=development
 PORT=5001
 MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/echallan?retryWrites=true&w=majority
 JWT_SECRET=your-super-secret-jwt-key-here
-EMAIL_USER=your-email@gmail.com
-EMAIL_PASS=your-email-app-password
 
 # Optional: For production
 FRONTEND_URL=http://localhost:3000
@@ -166,7 +164,6 @@ Frontend will run on: `http://localhost:3000`
 Open your browser and navigate to:
 - **Frontend:** `http://localhost:3000`
 - **Backend API:** `http://localhost:5001/api`
-- **API Health Check:** `http://localhost:5001/api/health`
 
 ## Production Deployment
 
