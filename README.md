@@ -32,7 +32,7 @@ A comprehensive digital platform for modern traffic law enforcement and violatio
 
 ## Features
 
-### 🚔 For Traffic Officers
+### For Traffic Officers
 - **Digital Challan Issuance**: Issue e-challans with vehicle details, violation type, and location
 - **Violation History**: Access complete history of issued challans
 - **System Analytics Dashboard**: Monitor system usage and violation trends
@@ -274,16 +274,16 @@ pm2 serve build/ 3000 --name="e-challan-frontend" --spa
 pm2 save
 ```
 
-## 🔄 CI/CD Pipeline
+## CI/CD Pipeline
 
 This project uses GitHub Actions for automated deployment:
 
 ### Workflow Features
-- ✅ **Automated Testing** - Runs test suite on every push
-- ✅ **Multi-environment Support** - Development and production environments  
-- ✅ **Self-hosted Runner** - Deploys directly to AWS EC2
-- ✅ **Automatic IP Updates** - Handles dynamic EC2 IP addresses
-- ✅ **Process Management** - Automatically manages PM2 processes
+- **Automated Testing** - Runs test suite on every push
+- **Multi-environment Support** - Development and production environments  
+- **Self-hosted Runner** - Deploys directly to AWS EC2
+- **Automatic IP Updates** - Handles dynamic EC2 IP addresses
+- **Process Management** - Automatically manages PM2 processes
 
 ### Setting Up CI/CD
 
@@ -310,7 +310,7 @@ This project uses GitHub Actions for automated deployment:
    git push origin main
    ```
 
-## 📡 API Documentation
+## API Documentation
 
 ### Authentication Endpoints
 ```
