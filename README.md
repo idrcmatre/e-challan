@@ -1,6 +1,6 @@
 # E-Challan Traffic Violation Management System
 
-A comprehensive digital platform for modern traffic law enforcement and violation processing. This full-stack web application enables traffic officers to issue electronic challans (fines), allows citizens to view and pay their fines online, and provides administrators with complete system management capabilities.
+A digital platform for traffic law enforcement and violation processing. This web application enables traffic officers to issue electronic challans (fines), and allows citizens to view and pay their fines online.
 
 **JIRA Board:** [https://vaishnav-rai.atlassian.net/jira/software/projects/EC/boards/34](https://vaishnav-rai.atlassian.net/jira/software/projects/EC/boards/34)
 
