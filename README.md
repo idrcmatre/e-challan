@@ -2,6 +2,8 @@
 
 A comprehensive digital platform for modern traffic law enforcement and violation processing. This full-stack web application enables traffic officers to issue electronic challans (fines), allows citizens to view and pay their fines online, and provides administrators with complete system management capabilities.
 
+**JIRA Board:** [https://vaishnav-rai.atlassian.net/jira/software/projects/EC/boards/34](https://vaishnav-rai.atlassian.net/jira/software/projects/EC/boards/34)
+
 ## Live Demo
 
 **Public URL:** [http://3.26.229.182](http://3.26.229.182)
@@ -13,9 +15,6 @@ A comprehensive digital platform for modern traffic law enforcement and violatio
 - **Citizen Account:**
   - Email: `citizen@test.com` 
   - Password: `password123`
-- **Admin Account:**
-  - Email: `admin@test.com`
-  - Password: `admin123`
 
 ## Table of Contents
 
@@ -35,26 +34,18 @@ A comprehensive digital platform for modern traffic law enforcement and violatio
 
 ### 🚔 For Traffic Officers
 - **Digital Challan Issuance**: Issue e-challans with vehicle details, violation type, and location
-- **Real-time Violation Recording**: Capture violations instantly with mobile-responsive interface
 - **Violation History**: Access complete history of issued challans
-- **Photo Evidence Upload**: Attach images as violation evidence
+- **System Analytics Dashboard**: Monitor system usage and violation trends
 
 ### For Citizens
 - **Online Challan Viewing**: Check all personal traffic violations
-- **Secure Payment Processing**: Pay fines online with multiple payment options
+- **Secure Payment Processing**: Pay fines online with multiple payment options (Mock)
 - **Payment History**: Track all payment transactions
 - **Violation Details**: View detailed violation information and evidence
 
-### For Administrators
-- **System Analytics Dashboard**: Monitor system usage and violation trends
-- **User Management**: Manage officer and citizen accounts
-- **Report Generation**: Export violation and payment data
-- **System Configuration**: Configure fine amounts and violation types
-
 ### Security Features
 - **JWT Authentication**: Secure token-based authentication system
-- **Role-Based Access Control**: Different access levels for officers, citizens, and admins
-- **Data Encryption**: Secure handling of sensitive payment and personal data
+- **Role-Based Access Control**: Different access levels for officers, citizens
 - **Session Management**: Automatic session timeout and security measures
 
 ## Tech Stack
@@ -262,9 +253,9 @@ sudo nginx -t
 sudo systemctl restart nginx
 ```
 
-### Daily Restart Management (For Educational EC2 Instances)
+### Daily Restart Management (For EC2 Instances)
 
-If your EC2 instance restarts daily, use these commands to quickly restore services:
+EC2 instance restarts daily, so use these commands to quickly restore services:
 
 ```bash
 # Quick restart script
@@ -299,8 +290,7 @@ This project uses GitHub Actions for automated deployment:
 1. **Configure GitHub Secrets:**
    - `MONGO_URI` - MongoDB connection string
    - `JWT_SECRET` - JWT signing secret
-   - `EMAIL_USER` - Email service username
-   - `EMAIL_PASS` - Email service password
+   - `PORT` - Backend Port 
    - `PROD` - All production environment variables
 
 2. **Setup Self-hosted Runner:**
@@ -346,115 +336,24 @@ GET  /api/payments/history - Get payment history
 GET  /api/payments/:id     - Get payment details
 ```
 
-### Admin Endpoints
-```
-GET  /api/admin/stats      - System statistics
-GET  /api/admin/users      - User management
-POST /api/admin/reports    - Generate reports
-```
 
 ## Project Management
 
 **JIRA Board:** [https://vaishnav-rai.atlassian.net/jira/software/projects/EC/boards/34](https://vaishnav-rai.atlassian.net/jira/software/projects/EC/boards/34)
 
 ### Project Structure
-- **Epics:** Traffic Violation Management, Payment Processing System
-- **User Stories:** Feature-based development tracks
+- **Epics:** Violation History, Payment Processing System, User Authentication, E-Challan Issuance, Project Deliverables
+- **User Stories:** Feature-based development
 - **Sprints:** 2-week development cycles
-- **Sub-tasks:** Granular development tasks
+- **Sub-tasks:** Further development tasks
 
-## 🤝 Contributing
 
-1. **Fork the repository**
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-3. **Commit your changes**
-   ```bash
-   git commit -m 'Add some amazing feature'
-   ```
-4. **Push to the branch**
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-5. **Open a Pull Request**
 
-### Development Guidelines
-- Follow ESLint configuration
-- Write unit tests for new features
-- Update documentation for API changes
-- Use conventional commit messages
-
-## 🔧 Troubleshooting
-
-### Common Issues
-
-#### 502 Bad Gateway
-```bash
-# Check if services are running
-pm2 status
-
-# Restart services if needed
-pm2 restart all
-
-# Check Nginx status
-sudo systemctl status nginx
-```
-
-#### API Connection Issues
-```bash
-# Verify backend is running
-curl http://localhost:5001/api/health
-
-# Check frontend API configuration
-grep -r "localhost\|[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+" frontend/src/
-```
-
-#### Database Connection Issues
-```bash
-# Test MongoDB connection
-node -e "const mongoose = require('mongoose'); mongoose.connect('YOUR_MONGO_URI').then(() => console.log('Connected')).catch(err => console.log('Error:', err));"
-```
-
-#### Runner Not Working
-```bash
-# Check runner status
-cd ~/www/actions-runner
-sudo ./svc.sh status
-
-# Restart runner
-sudo ./svc.sh stop
-sudo ./svc.sh start
-
-# Check runner logs
-tail -f _diag/Runner_*.log
-```
-
-### Environment-Specific Issues
-
-#### Development Environment
-- Ensure both frontend and backend are running
-- Check console for CORS errors
-- Verify environment variables are set
-
-#### Production Environment
-- Ensure Nginx is properly configured
-- Check PM2 process status
-- Verify firewall rules allow HTTP/HTTPS traffic
-
-### Support
-
-For additional support:
-1. Check the [Issues](https://github.com/idrcmatre/e-challan/issues) page
-2. Review troubleshooting steps above
-3. Contact the development team
-
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Author
+## Author
 
 **Vaishnav Rai** - [GitHub](https://github.com/idrcmatre)
 
@@ -466,6 +365,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Last Updated:** August 2025  
+**Last Updated:** 15 August 2025  
 **Version:** 1.0.0  
 **Status:** Production Ready
