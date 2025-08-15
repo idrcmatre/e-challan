@@ -1,8 +1,8 @@
-// frontend/src/pages/Login.jsx - BEAUTIFUL VERSION
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -19,7 +19,7 @@ const Login = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post('http://3.106.138.97/api/auth/login', formData);
+            const response = await axios.post(`${API_BASE_URL}/auth/login`, formData);
             login(response.data);
 
             // Success notification

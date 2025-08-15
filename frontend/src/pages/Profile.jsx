@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api';
 
 const Profile = () => {
   const { user } = useAuth();
@@ -21,12 +22,12 @@ const Profile = () => {
 
   const fetchProfile = async () => {
     try {
-      const response = await axios.get(
-        'http://3.106.138.97/api/auth/profile',
-        {
-          headers: { Authorization: `Bearer ${user.token}` }
-        }
-      );
+        const response = await axios.get(
+            `${API_BASE_URL}/auth/profile`,
+            {
+                headers: { Authorization: `Bearer ${user.token}` }
+            }
+        );
       setFormData({
         name: response.data.name || '',
         email: response.data.email || '',
@@ -45,13 +46,13 @@ const Profile = () => {
     setLoading(true);
 
     try {
-      await axios.put(
-        'http://3.106.138.97/api/auth/profile',
-        formData,
-        {
-          headers: { Authorization: `Bearer ${user.token}` }
-        }
-      );
+        await axios.put(
+            `${API_BASE_URL}/auth/profile`,
+            formData,
+            {
+                headers: { Authorization: `Bearer ${user.token}` }
+            }
+        );
       alert('Profile updated successfully!');
     } catch (error) {
       alert(error.response?.data?.message || 'Failed to update profile');

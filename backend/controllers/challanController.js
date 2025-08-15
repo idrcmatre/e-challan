@@ -1,4 +1,4 @@
-const Challan = require('../models/Challan');
+﻿const Challan = require('../models/Challan');
 const User = require('../models/User');
 const emailService = require('../utils/emailService');
 
@@ -106,27 +106,54 @@ const updateChallan = async (req, res) => {
         }
 
         // Check permissions
-        if (req.user.role === 'citizen' && challan.citizenId.toString() !== req.user.id) {
-            return res.status(403).json({ message: 'Access denied' });
+        if (req.user.role === 'officer' && challan.officerId.toString() !== req.user.id) {
+            return res.status(403).json({ message: 'Access denied - you can only edit your own challans' });
         }
 
-        const { status, description } = req.body;
+        console.log('📝 Received update data:', req.body);
+        console.log('🔍 EXACT req.body content:', JSON.stringify(req.body, null, 2));
 
-        if (status) challan.status = status;
-        if (description) challan.description = description;
+        const updateFields = {};
 
-        if (status === 'paid') {
-            challan.paymentDate = new Date();
+        // Check each field directly from req.body
+        if (req.body.violationType) {
+            updateFields.violationType = req.body.violationType;
+            console.log('✅ Adding violationType to update:', req.body.violationType);
+        }
+        if (req.body.location) {
+            updateFields.location = req.body.location;
+            console.log('✅ Adding location to update:', req.body.location);
+        }
+        if (req.body.fineAmount) {
+            updateFields.fineAmount = Number(req.body.fineAmount);
+            console.log('✅ Adding fineAmount to update:', req.body.fineAmount);
+        }
+        if (req.body.description !== undefined) {
+            updateFields.description = req.body.description;
+            console.log('✅ Adding description to update:', req.body.description);
+        }
+        if (req.body.status) {
+            updateFields.status = req.body.status;
+            console.log('✅ Adding status to update:', req.body.status);
         }
 
-        const updatedChallan = await challan.save();
+        if (req.body.status === 'paid') {
+            updateFields.paymentDate = new Date();
+        }
 
-        const populatedChallan = await Challan.findById(updatedChallan._id)
-            .populate('citizenId', 'name email')
+        console.log('💾 Final update fields:', updateFields);
+
+        const updatedChallan = await Challan.findByIdAndUpdate(
+            req.params.id,
+            updateFields,
+            { new: true, runValidators: true }
+        ).populate('citizenId', 'name email')
             .populate('officerId', 'name');
 
-        res.json(populatedChallan);
+        console.log('✅ Update completed, sending response');
+        res.json(updatedChallan);
     } catch (error) {
+        console.error('❌ Update challan error:', error);
         res.status(500).json({ message: error.message });
     }
 };
