@@ -1,5 +1,3 @@
-const API_BASE_URL = process.env.NODE_ENV === 'production' 
-    ? 'http://3.106.138.97/api' 
-    : 'http://localhost:5001/api';
+const API_BASE_URL = 'http://3.104.65.126/api' 
 
 export default API_BASE_URL;
