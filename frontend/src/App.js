@@ -9,7 +9,7 @@ import Challans from './pages/Challans';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import PaymentHistory from './pages/PaymentHistory';
-import 'App.css';
+import './App.css';
 
 //comment for push
 //comment for push
