@@ -36,29 +36,19 @@ const Challans = () => {
         setChallans(prevChallans => [newChallan, ...prevChallans]);
     };
 
-    // Fixed: Use functional update pattern with prevChallans
     const handleChallanUpdate = (updatedChallanOrAction, challanId) => {
-        console.log('Parent: handleChallanUpdate called', { updatedChallanOrAction, challanId });
-
         if (updatedChallanOrAction === 'DELETE') {
-            console.log('Parent: Deleting challan:', challanId);
             setChallans(prevChallans =>
                 prevChallans.filter(challan => challan._id !== challanId)
             );
         } else {
-            console.log('Parent: Updating challan:', updatedChallanOrAction._id);
-            console.log('Updated data:', updatedChallanOrAction);
-
             setChallans(prevChallans => {
                 const updatedChallans = prevChallans.map(challan => {
                     if (challan._id === updatedChallanOrAction._id) {
-                        console.log('Found and updating challan:', challan._id);
                         return updatedChallanOrAction;
                     }
                     return challan;
                 });
-
-                console.log('Updated challans array length:', updatedChallans.length);
                 return updatedChallans;
             });
         }
@@ -69,58 +59,173 @@ const Challans = () => {
         return challan.status === filter;
     });
 
+    const getFilterCounts = () => {
+        return {
+            all: challans.length,
+            pending: challans.filter(c => c.status === 'pending').length,
+            paid: challans.filter(c => c.status === 'paid').length,
+            disputed: challans.filter(c => c.status === 'disputed').length,
+            cancelled: challans.filter(c => c.status === 'cancelled').length,
+        };
+    };
+
+    const filterCounts = getFilterCounts();
+
     if (loading) {
         return (
             <div className="flex justify-center items-center h-64">
-                <div className="text-gray-500">Loading challans...</div>
+                <div className="flex flex-col items-center space-y-4">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                    <p className="text-gray-500 font-medium">Loading challans...</p>
+                </div>
             </div>
         );
     }
 
     return (
-        <div>
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="text-3xl font-bold text-gray-900">
-                    {user.role === 'officer' ? 'Manage Challans' : 'My Challans'}
-                </h1>
+        <div className="space-y-6">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+                <div>
+                    <h1 className="text-3xl font-bold text-gray-900">
+                        {user.role === 'officer' ? 'Manage Challans' : 'My Challans'}
+                    </h1>
+                    <p className="text-gray-600 mt-1">
+                        {user.role === 'officer'
+                            ? 'Issue and manage traffic violations'
+                            : 'View and pay your traffic violations'
+                        }
+                    </p>
+                </div>
 
                 {user.role === 'officer' && (
                     <button
                         onClick={() => setShowForm(true)}
-                        className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                        className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
                     >
+                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                        </svg>
                         Issue New Challan
                     </button>
                 )}
             </div>
 
+            {/* Statistics Cards */}
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-sm font-medium text-gray-600">Total</p>
+                            <p className="text-2xl font-bold text-gray-900">{filterCounts.all}</p>
+                        </div>
+                        <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-sm font-medium text-gray-600">Pending</p>
+                            <p className="text-2xl font-bold text-amber-600">{filterCounts.pending}</p>
+                        </div>
+                        <div className="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
+                            <svg className="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-sm font-medium text-gray-600">Paid</p>
+                            <p className="text-2xl font-bold text-green-600">{filterCounts.paid}</p>
+                        </div>
+                        <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                            <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-sm font-medium text-gray-600">Disputed</p>
+                            <p className="text-2xl font-bold text-red-600">{filterCounts.disputed}</p>
+                        </div>
+                        <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
+                            <svg className="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-sm font-medium text-gray-600">Cancelled</p>
+                            <p className="text-2xl font-bold text-gray-600">{filterCounts.cancelled}</p>
+                        </div>
+                        <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {/* Filter Tabs */}
-            <div className="mb-6">
-                <div className="flex space-x-4">
-                    {['all', 'pending', 'paid', 'disputed'].map(status => (
+            <div className="bg-white rounded-lg border border-gray-200 p-1 shadow-sm">
+                <div className="flex flex-wrap gap-1">
+                    {[
+                        { key: 'all', label: 'All Challans', count: filterCounts.all },
+                        { key: 'pending', label: 'Pending', count: filterCounts.pending },
+                        { key: 'paid', label: 'Paid', count: filterCounts.paid },
+                        { key: 'disputed', label: 'Disputed', count: filterCounts.disputed },
+                        { key: 'cancelled', label: 'Cancelled', count: filterCounts.cancelled }
+                    ].map(tab => (
                         <button
-                            key={status}
-                            onClick={() => setFilter(status)}
-                            className={`px-4 py-2 rounded-md text-sm font-medium ${filter === status
-                                ? 'bg-blue-600 text-white'
-                                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                            key={tab.key}
+                            onClick={() => setFilter(tab.key)}
+                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center space-x-2 ${filter === tab.key
+                                    ? 'bg-blue-600 text-white'
+                                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                                 }`}
                         >
-                            {status.charAt(0).toUpperCase() + status.slice(1)}
-                            {status !== 'all' && (
-                                <span className="ml-1">
-                                    ({challans.filter(c => c.status === status).length})
-                                </span>
-                            )}
+                            <span>{tab.label}</span>
+                            <span className={`text-xs px-2 py-0.5 rounded-full ${filter === tab.key
+                                    ? 'bg-blue-500 text-white'
+                                    : 'bg-gray-200 text-gray-600'
+                                }`}>
+                                {tab.count}
+                            </span>
                         </button>
                     ))}
                 </div>
             </div>
 
+            {/* Results Summary */}
+            <div className="flex items-center justify-between">
+                <p className="text-sm text-gray-600">
+                    Showing <span className="font-medium">{filteredChallans.length}</span> of{' '}
+                    <span className="font-medium">{challans.length}</span> challans
+                </p>
+            </div>
+
             {/* Challan Form Modal */}
             {showForm && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-                    <div className="max-w-md w-full">
+                    <div className="max-w-2xl w-full max-h-[90vh] overflow-y-auto">
                         <ChallanForm
                             onChallanCreated={handleChallanCreated}
                             onClose={() => setShowForm(false)}
