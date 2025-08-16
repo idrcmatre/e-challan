@@ -6,7 +6,7 @@ A digital platform for traffic law enforcement and violation processing. This we
 
 ## Live Demo
 
-**Public URL:** [http://3.26.229.182](http://3.26.229.182)
+**Public URL:** [http://13.236.98.196](http://13.236.98.196/dashboard)
 
 **Test Credentials:**
 - **Officer Account:** 
