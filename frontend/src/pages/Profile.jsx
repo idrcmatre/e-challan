@@ -118,8 +118,8 @@ const Profile = () => {
             {/* Header */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                 <div className="flex items-center space-x-4">
-                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
-                        <span className="text-white text-xl font-bold">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                        <span className="text-white text-lg font-bold">
                             {user.name.charAt(0).toUpperCase()}
                         </span>
                     </div>

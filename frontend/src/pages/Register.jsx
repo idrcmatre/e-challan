@@ -78,8 +78,8 @@ const Register = () => {
                             </label>
                             <div className="grid grid-cols-2 gap-3">
                                 <label className={`relative flex cursor-pointer rounded-lg p-4 border-2 transition-colors ${formData.role === 'citizen'
-                                        ? 'border-blue-500 bg-blue-50'
-                                        : 'border-gray-300 bg-white hover:bg-gray-50'
+                                    ? 'border-blue-500 bg-blue-50'
+                                    : 'border-gray-300 bg-white hover:bg-gray-50'
                                     }`}>
                                     <input
                                         type="radio"
@@ -102,8 +102,8 @@ const Register = () => {
                                 </label>
 
                                 <label className={`relative flex cursor-pointer rounded-lg p-4 border-2 transition-colors ${formData.role === 'officer'
-                                        ? 'border-blue-500 bg-blue-50'
-                                        : 'border-gray-300 bg-white hover:bg-gray-50'
+                                    ? 'border-blue-500 bg-blue-50'
+                                    : 'border-gray-300 bg-white hover:bg-gray-50'
                                     }`}>
                                     <input
                                         type="radio"
