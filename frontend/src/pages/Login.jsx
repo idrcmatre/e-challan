@@ -53,21 +53,21 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full">
                 {/* Header */}
                 <div className="text-center mb-8">
-                    <div className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
-                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="mx-auto w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4 shadow-sm">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                     </div>
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
+                    <h1 className="text-2xl font-semibold text-gray-900 mb-2">Welcome Back</h1>
                     <p className="text-gray-600">Sign in to your E-Challan account</p>
                 </div>
 
                 {/* Login Form */}
-                <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Email Field */}
                         <div>
@@ -135,7 +135,7 @@ const Login = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                            className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         >
                             {loading ? (
                                 <div className="flex items-center">
@@ -180,31 +180,31 @@ const Login = () => {
                 </div>
 
                 {/* Demo Credentials */}
-                <div className="mt-6 bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
+                <div className="mt-6 bg-white rounded-lg p-4 border border-gray-200">
                     <h3 className="text-sm font-medium text-gray-900 mb-3 flex items-center">
-                        <svg className="w-4 h-4 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         Demo Credentials
                     </h3>
                     <div className="space-y-2 text-xs">
-                        <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg border border-blue-200">
-                            <span className="font-medium text-blue-900 flex items-center">
+                        <div className="flex justify-between items-center p-3 bg-gray-50 rounded border">
+                            <span className="font-medium text-gray-700 flex items-center">
                                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                                 </svg>
                                 Officer Account:
                             </span>
-                            <span className="text-blue-700 font-mono">MFBTC@gmail.com / Vai</span>
+                            <span className="text-gray-700 font-mono text-xs">MFBTC@gmail.com / Vai</span>
                         </div>
-                        <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
-                            <span className="font-medium text-green-900 flex items-center">
+                        <div className="flex justify-between items-center p-3 bg-gray-50 rounded border">
+                            <span className="font-medium text-gray-700 flex items-center">
                                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                 </svg>
                                 Citizen Account:
                             </span>
-                            <span className="text-green-700 font-mono">citizen@example.com / citizen</span>
+                            <span className="text-gray-700 font-mono text-xs">citizen@example.com / citizen</span>
                         </div>
                     </div>
                 </div>
